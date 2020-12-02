@@ -24,6 +24,12 @@ const cookieParams = [
         Cookie: 'ywguid=1398371419;ywkey=yw0GpSYORC1s;platform=android;channel=mqqmina;mpVersion=0.30.0;',
         qqreadtimeurlVal: 'https://mqqapi.reader.qq.com/mqq/addReadTimeWithBid?scene=2014&refer=-1&bid=26134185&readTime=4761&read_type=0&conttype=1&read_status=0&chapter_info=%5B%7B%221%22%3A%7B%22readTime%22%3A4761%2C%22pay_status%22%3A0%7D%7D%5D&sp=-1',
         qqreadCookie: 'ywguid=1398371419;ywkey=ywZut6ibGPeB;platform=android;channel=mqqmina;mpVersion=0.30.0;qq_ver=8.3.9.2944;os_ver=Android 10;mpos_ver=1.16.0;platform=android;openid=BE8F85D640E85BB13C942C8DE01B0363'
+    },
+    {
+        ywsession:'7riou17kyy8f25o8dgldsjgbtfoegxei',
+        Cookie: 'ywguid=1961396387;ywkey=ywrnXU79Wshj;platform=android;channel=mqqmina;mpVersion=0.30.0;',
+        qqreadtimeurlVal:'https://mqqapi.reader.qq.com/mqq/addReadTimeWithBid?scene=1043&refer=pages%2Fbook-read%2Findex&bid=27581758&readTime=6297&read_type=0&conttype=1&read_status=0&chapter_info=%5B%7B%221%22%3A%7B%22readTime%22%3A6297%2C%22pay_status%22%3A0%2C%22is_tail%22%3A0%7D%7D%5D&sp=-1',
+        qqreadCookie:'ywguid=1961396387;ywkey=ywEODy12W6W4;platform=android;channel=mqqmina;mpVersion=0.30.0;qq_ver=8.3.9.2944;os_ver=Android 10;mpos_ver=1.16.0;platform=android;openid=4A1894BDB8D5051278EA17C1EA69C98B'
     }
 ]
 const cookiesArr = cookieParams.map(it => {
