@@ -41,8 +41,8 @@
     "jd_car": "node jd_car.js",
     "jd_health": "node jd_health.js",
     "jd_kd": "node jd_kd.js",
+    "jd_ds": "node jd_ds.js",
     "shareCodesHelper": "node shareCodesHelper.js",
-
     "lightning_checkin": "node other/lightning_checkin.js",
     "smzdm_checkin": "node other/smzdm_checkin.js",
     "j.mr_checkin": "node other/j.mr_checkin.js",
