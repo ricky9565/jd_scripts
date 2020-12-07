@@ -7,7 +7,8 @@ class ShareCode {
                 ddfactory,
                 jxfactory,
                 jxStory,
-                jdSplit) {
+                jdSplit,
+                jdHealth) {
         this._username = username
         // 东东农场互助码
         this._fruits = fruits
@@ -23,6 +24,8 @@ class ShareCode {
         this._jxStory = jxStory
         // 京榜年终奖
         this._jdSplit = jdSplit
+        // 京东健康抽奖机
+        this._jdHealth = jdHealth
     }
 
     get username() {
@@ -56,6 +59,10 @@ class ShareCode {
     get jdSplit() {
         return this._jdSplit
     }
+
+    get jdHealth() {
+        return this._jdHealth
+    }
 }
 
 const shareCodes = [
@@ -67,7 +74,8 @@ const shareCodes = [
         'P04z54XCjVWnYaS5m9cZ2T62ypPnY82rvc-CJA',
         'n3AaXZttXXmX6mIJenJWjw==',
         'JRurIu4XYSB8NPOzdUPImYR0f2tbnAd5ETR1tM90sak=',
-        'P04z54XCjVUnIaW5m9cZ2T62ypPnccHcyh7TME'
+        'P04z54XCjVUnIaW5m9cZ2T62ypPnccHcyh7TME',
+        'P04z54XCjVUnoaW5m9cZ2T62ypPnXW_Ekpbj-M'
     ),
     new ShareCode(
         '大咪酱噢噢噢',
@@ -77,13 +85,19 @@ const shareCodes = [
         'P04z54XCjVWnYaS5m9cZxa_rCUbw1uYn51X5g',
         'cgw1XF89J-1IWzDQICxWcg==',
         '40OKfEi2PzjgCMVnZzl2ttDXOc-iAXtDDXDdaNFqu9o=',
-        'P04z54XCjVUnIaW5m9cZxa_rCUbw2Ezcr-scg'
+        'P04z54XCjVUnIaW5m9cZxa_rCUbw2Ezcr-scg',
+        'P04z54XCjVUnoaW5m9cZxa_rCUbwwORFGOwdw'
     ),
     new ShareCode(
         '高敏',
         '32b5348df6374239964194e187fa187c',
         'MTE1NDUwMTI0MDAwMDAwMDQwNDcxOTYx',
         'mv3riww4sqy5f53abjy63rud3qz6gsx6f7h3czq',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
     ),
     new ShareCode(
         '大咪嗷嗷2',
@@ -140,6 +154,7 @@ const shareCodes = [
         undefined,
         'VWMrbTBkk8qIziGYchoa0eOx3qbAGiY_nnoY1OgvLP8=',
         'P04z54XCjVUnIaW5m9cZ2auj3RKl--KfJRZ8z8',
+        'P04z54XCjVUnoaW5m9cZ2auj3RKl9xtmYsZHqU'
     )
 ]
 

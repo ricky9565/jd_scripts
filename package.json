@@ -42,6 +42,8 @@
     "jd_health": "node jd_health.js",
     "jd_kd": "node jd_kd.js",
     "jd_ds": "node jd_ds.js",
+    "jd_digital_floor": "node jd_digital_floor.js",
+    "jd_live_redrain": "node jd_live_redrain.js",
     "shareCodesHelper": "node shareCodesHelper.js",
     "lightning_checkin": "node other/lightning_checkin.js",
     "smzdm_checkin": "node other/smzdm_checkin.js",

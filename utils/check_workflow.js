@@ -27,7 +27,14 @@ const whiteList = [
     'shareCodesHelper.js',
     'smzdm_checkin.js',
     'test2.js',
-    'v2ex_checkin.js'
+    'v2ex_checkin.js',
+    'jd_car.js',
+    'jd_ds.js',
+    'jd_health.js',
+    'jd_kd.js',
+    'jd_digital_floor.js',
+    'CookieSet.json',
+    'jdJxStoryShareCodes.js'
 ]
 
 const scripts = fs.readdirSync('./').filter(it => it.includes('.js'))

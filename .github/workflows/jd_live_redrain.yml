@@ -6,11 +6,11 @@ name: 首页领京豆
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 7 * * *' # 每天7点10分
+    - cron: '0 0,9,11,13,15,17,19,20,21,23 * * *'
   watch:
     types: started
   repository_dispatch:
-    types: bean_home
+    types: live_redrain
 jobs:
   build:
 
@@ -33,12 +33,9 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【首页领京豆】'
+      - name: '运行 【直播红包雨】'
         run: |
-          npm run jd_bean_home
-          npm run jd_car
-          npm run jd_ds
-          npm run jd_digital_floor
+          npm run jd_live_redrain
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
