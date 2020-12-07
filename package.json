@@ -35,6 +35,8 @@
     "jd_shareCodes_boarding": "node jd_shareCodes_boarding.js",
     "jd_syj": "node jd_syj.js",
     "jd_jxstory": "node jd_jxstory.js",
+    "jd_ms_redrain": "node jd_ms_redrain.js",
+    "jd_split": "node jd_split.js",
     "shareCodesHelper": "node shareCodesHelper.js",
     "lightning_checkin": "node other/lightning_checkin.js",
     "smzdm_checkin": "node other/smzdm_checkin.js",
