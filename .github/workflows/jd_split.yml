@@ -36,6 +36,8 @@ jobs:
       - name: '运行 【金榜年终奖】'
         run: |
           npm run jd_split
+          npm run jd_health
+          npm run jd_kd
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}

@@ -36,6 +36,7 @@ jobs:
       - name: '运行 【首页领京豆】'
         run: |
           npm run jd_bean_home
+          npm run jd_car
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
