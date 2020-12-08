@@ -1,7 +1,28 @@
 /*ziye
-
 本人github地址     https://github.com/ziye12/JavaScript
 转载请备注个名字，谢谢
+11.25 增加 阅读时长上传，阅读金币，阅读随机金币
+11.25 修复翻倍宝箱不同时领取的问题.增加阅读金币判定
+11.25 修复阅读时长问题，阅读金币问题，请重新获取时长cookie
+11.26 随机金币只有一次，故去除，调整修复阅读金币问题，增加时长上传限制
+11.26 增加领取周时长奖励
+11.26 增加结束命令
+11.27 调整通知为，成功开启宝箱再通知
+11.28 修复错误
+12.1 调整通知为15次宝箱通知一次
+12.1 优化通知
+12.2 修复企鹅更新打卡不了的问题
+⚠️cookie获取方法：
+进 https://m.q.qq.com/a/s/d3eacc70120b9a37e46bad408c0c4c2a  点我的   获取cookie
+进一本书 看 10秒以下 然后退出，获取阅读时长cookie，看书一定不能超过10秒
+可能某些页面会卡住，但是能获取到cookie，再注释cookie重写就行了！
+⚠️宝箱奖励为20分钟一次，自己根据情况设置定时，建议设置11分钟一次
+hostname=mqqapi.reader.qq.com
+user\/init
+
+企鹅读书 = user/init
+//企鹅读书获取时长cookie
+企鹅读书 = addReadTimeWithBid
 */
 
 const jsname = "企鹅读书";
@@ -18,18 +39,19 @@ const maxtime = 20; //每日上传时长限制，默认20小时
 const wktimess = 1200; //周奖励领取标准，默认1200分钟
 const qqreadurlVal = "https://mqqapi.reader.qq.com/mqq/user/init";
 let qqreadheaderVal, qqreadtimeurlVal, qqreadtimeheaderVal;
+const QQ_READ_HOST = 'https://mqqapi.reader.qq.com'
 const cookieParams = [
     {
-        ywsession: '7ra0jg00a821v16d10a1xdqs8qdkykkd',
-        Cookie: 'ywguid=1398371419;ywkey=yw0GpSYORC1s;platform=android;channel=mqqmina;mpVersion=0.30.0;',
-        qqreadtimeurlVal: 'https://mqqapi.reader.qq.com/mqq/addReadTimeWithBid?scene=2014&refer=-1&bid=26134185&readTime=4761&read_type=0&conttype=1&read_status=0&chapter_info=%5B%7B%221%22%3A%7B%22readTime%22%3A4761%2C%22pay_status%22%3A0%7D%7D%5D&sp=-1',
-        qqreadCookie: 'ywguid=1398371419;ywkey=ywZut6ibGPeB;platform=android;channel=mqqmina;mpVersion=0.30.0;qq_ver=8.3.9.2944;os_ver=Android 10;mpos_ver=1.16.0;platform=android;openid=BE8F85D640E85BB13C942C8DE01B0363'
+        ywsession: 'l7q243pi7iokxcckt2jiae2a18yjoy65',
+        Cookie: 'ywguid=1398371419;ywkey=ywAFXZFjJGcQ;platform=android;channel=mqqmina;mpVersion=0.31.0',
+        qqreadtimeurlVal: `${QQ_READ_HOST}/mqq/addReadTimeWithBid?scene=2014&refer=-1&bid=34342842&readTime=4775&read_type=0&conttype=1&read_status=0&chapter_info=%5B%7B%221%22%3A%7B%22readTime%22%3A4775%2C%22pay_status%22%3A0%7D%7D%5D&sp=-1`,
+        qqreadCookie: 'ywguid=1398371419;ywkey=ywAFXZFjJGcQ;platform=android;channel=mqqmina;mpVersion=0.31.0;qq_ver=8.3.9.2952;os_ver=Android 10;mpos_ver=1.16.0;platform=android;openid=BE8F85D640E85BB13C942C8DE01B0363'
     },
     {
-        ywsession:'7riou17kyy8f25o8dgldsjgbtfoegxei',
-        Cookie: 'ywguid=1961396387;ywkey=ywrnXU79Wshj;platform=android;channel=mqqmina;mpVersion=0.30.0;',
-        qqreadtimeurlVal:'https://mqqapi.reader.qq.com/mqq/addReadTimeWithBid?scene=1043&refer=pages%2Fbook-read%2Findex&bid=27581758&readTime=6297&read_type=0&conttype=1&read_status=0&chapter_info=%5B%7B%221%22%3A%7B%22readTime%22%3A6297%2C%22pay_status%22%3A0%2C%22is_tail%22%3A0%7D%7D%5D&sp=-1',
-        qqreadCookie:'ywguid=1961396387;ywkey=ywEODy12W6W4;platform=android;channel=mqqmina;mpVersion=0.30.0;qq_ver=8.3.9.2944;os_ver=Android 10;mpos_ver=1.16.0;platform=android;openid=4A1894BDB8D5051278EA17C1EA69C98B'
+        ywsession:'9ajj8zi0bcslkfcok5jetif3cpcw6m46',
+        Cookie: 'ywguid=1961396387;ywkey=ywEODy12W6W4;platform=android;channel=mqqmina;mpVersion=0.31.0',
+        qqreadtimeurlVal:`${QQ_READ_HOST}/mqq/addReadTimeWithBid?scene=1043&refer=-1&bid=34397106&readTime=8245&read_type=0&conttype=1&read_status=0&chapter_info=%5B%7B%221%22%3A%7B%22readTime%22%3A8245%2C%22pay_status%22%3A0%7D%7D%5D&sp=-1`,
+        qqreadCookie:'ywguid=1961396387;ywkey=ywEODy12W6W4;platform=android;channel=mqqmina;mpVersion=0.31.0;qq_ver=8.3.9.2952;os_ver=Android 10;mpos_ver=1.16.0;platform=android;openid=4A1894BDB8D5051278EA17C1EA69C98B'
     }
 ]
 const cookiesArr = cookieParams.map(it => {
