@@ -1,5 +1,6 @@
 /*
-PUBG
+PUBG ,运行时间会比较久,Surge请加大timeout时间
+脚本会给内置的码进行助力
 活动于2020-12-13日结束
 活动地址：https://starsingle.m.jd.com/static/index.html#/?fromChangeSkinNum=PUBG
 已支持IOS双京东账号,Node.js支持N个京东账号
