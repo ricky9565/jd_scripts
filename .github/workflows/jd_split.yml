@@ -36,9 +36,6 @@ jobs:
       - name: '运行 【金榜年终奖】'
         run: |
           npm run jd_split
-          npm run jd_health
-          npm run jd_kd
-          npm run jd_apple_live
           npm run jd_pubg
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}

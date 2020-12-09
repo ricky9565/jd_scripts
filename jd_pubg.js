@@ -136,7 +136,8 @@ const JD_API_HOST = 'https://starsingle.m.jd.com/guardianstar/';
 const inviteCodes = [
     'd9b86cd8-f2bf-459a-be27-391cf5cd7879',
     '98467d7e-feed-4195-9ddd-2dff43170510',
-    '058ce0e3-4542-4871-86d2-df1ba902a622'
+    '058ce0e3-4542-4871-86d2-df1ba902a622',
+    '9a05b3a7-e639-46c0-9a00-cf23e202fca2'
 ]
 !(async () => {
   await requireConfig();
