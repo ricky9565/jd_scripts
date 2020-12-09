@@ -36,5 +36,6 @@ jobs:
         run: |
           npm run qqread
         env:
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          QQ_READ_HEADER_VAL: ${{ secrets.QQ_READ_HEADER_VAL }}
+          QQ_READ_TIME_URL_VAL: ${{ secrets.QQ_READ_TIME_URL_VAL }}
+          QQ_READ_TIME_HEADER_VAL: ${{ secrets.QQ_READ_TIME_HEADER_VAL }}
