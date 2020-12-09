@@ -138,7 +138,9 @@ const inviteCodes = [
     'd9b86cd8-f2bf-459a-be27-391cf5cd7879',
     '98467d7e-feed-4195-9ddd-2dff43170510',
     '058ce0e3-4542-4871-86d2-df1ba902a622',
-    '9a05b3a7-e639-46c0-9a00-cf23e202fca2'
+    '9a05b3a7-e639-46c0-9a00-cf23e202fca2',
+    '496454c4-65be-4426-8a5c-243bda52bba4',
+    '9302cc8f-5e11-4d31-817c-5356d5d7fbf6'
 ]
 !(async () => {
   await requireConfig();
