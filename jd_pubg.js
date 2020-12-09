@@ -133,7 +133,11 @@ if ($.isNode()) {
   cookiesArr.push(...[$.getdata('CookieJD'), $.getdata('CookieJD2')]);
 }
 const JD_API_HOST = 'https://starsingle.m.jd.com/guardianstar/';
-const inviteCodes = ['65561ad5-af72-4d1c-a5be-37b3de372b67@2d5f579d-e6d1-479e-931f-c275d602caf5','65561ad5-af72-4d1c-a5be-37b3de372b67@2d5f579d-e6d1-479e-931f-c275d602caf5']
+const inviteCodes = [
+    'd9b86cd8-f2bf-459a-be27-391cf5cd7879',
+    '98467d7e-feed-4195-9ddd-2dff43170510',
+    '058ce0e3-4542-4871-86d2-df1ba902a622'
+]
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
