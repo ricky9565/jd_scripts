@@ -47,6 +47,7 @@
     "jd_apple_live": "node jd_apple_live.js",
     "jd_live_redrain2": "node jd_live_redrain2.js",
     "jd_pubg": "node jd_pubg.js",
+    "jd_live": "node jd_live.js",
     "shareCodesHelper": "node shareCodesHelper.js",
     "lightning_checkin": "node other/lightning_checkin.js",
     "smzdm_checkin": "node other/smzdm_checkin.js",
