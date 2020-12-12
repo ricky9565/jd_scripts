@@ -54,6 +54,7 @@
     "j.mr_checkin": "node other/j.mr_checkin.js",
     "v2ex_checkin": "node other/v2ex_checkin.js",
     "bcs_checkin": "node other/bcs_checkin.js",
+    "52pojie_checkin": "node other/52pojie_checkin.js",
     "qqread": "node backUp/qqread.js",
     "check_workflow": "node utils/check_workflow.js"
   },
