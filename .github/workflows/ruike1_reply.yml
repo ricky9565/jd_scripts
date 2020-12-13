@@ -6,7 +6,7 @@ name: 瑞客论坛评论
 on:
   workflow_dispatch:
   schedule:
-    - cron: '16 */1 * * *' #每隔一小时运行一次
+    - cron: '*/13 * * * *' #每隔13分钟运行一次，瑞客论坛限制一小时最多5次评论
   watch:
     types: started
   repository_dispatch:
