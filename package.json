@@ -43,9 +43,7 @@
     "jd_kd": "node jd_kd.js",
     "jd_ds": "node jd_ds.js",
     "jd_digital_floor": "node jd_digital_floor.js",
-    "jd_live_redrain": "node jd_live_redrain.js",
     "jd_apple_live": "node jd_apple_live.js",
-    "jd_live_redrain2": "node jd_live_redrain2.js",
     "jd_pubg": "node jd_pubg.js",
     "jd_live": "node jd_live.js",
     "jr_sign": "node jr_sign.js",
@@ -57,6 +55,7 @@
     "bcs_checkin": "node other/bcs_checkin.js",
     "52pojie_checkin": "node other/52pojie_checkin.js",
     "ruike1_reply": "node other/ruike1_reply.js",
+    "xm_sport": "node xm_sport.js",
     "qqread": "node backUp/qqread.js",
     "check_workflow": "node utils/check_workflow.js"
   },
