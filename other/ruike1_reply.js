@@ -8,7 +8,12 @@ const FORM_HASH = '9a137856'
 const $ = new Env(name)
 const COOKIE = process.env.RUIKE_COOKIE
 // const REPLY_MESSAGE = '[img=1,1]https://www.ruike1.com/?fromuid=8159[/img]\n666666666666666666'
-const REPLY_MESSAGE = process.env.RUIKE_REPLY_MESSAGE || '[img=1,1]https://www.ruike1.com/?fromuid=8159[/img]\n666666666666666666'
+const REPLY_MESSAGE = [
+    'Thank you for sharing, Dingtie support.',
+    'Good stuff, thank you for sharing.',
+    'Peerless good article, I have to top it.',
+    'collected. thanks for sharing.',
+]
 
 !(async () => {
     // 开始任务
@@ -25,11 +30,11 @@ const REPLY_MESSAGE = process.env.RUIKE_REPLY_MESSAGE || '[img=1,1]https://www.r
     })
 
 /**
- * 最新热门随机选一个贴子
+ * 最新发表随机选一个贴子
  */
 function hotList() {
     const options = {
-        'url': 'https://www.ruike1.com/forum.php?mod=guide&view=hot',
+        'url': `https://www.ruike1.com/forum.php?mod=guide&view=newthread&page=${getRandom(1, 13)}`,
         'headers': {
             'Origin': 'https://www.ruike1.com',
             'Referer': 'https://www.ruike1.com/forum.php?mod=guide&view=hot',
@@ -88,7 +93,7 @@ function reply(tid) {
             'noticeauthormsg': '',
             'usesig': '1',
             'subject': '',
-            'message': REPLY_MESSAGE
+            'message': REPLY_MESSAGE[getRandom(0, REPLY_MESSAGE.length)]
         },
         'responseType': 'buffer'
     }
