@@ -6,7 +6,7 @@ name: 小米运动
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 0 * * *' # 每天8点10分
+    - cron: '15 9 * * *' # UTC+8 17点15
   watch:
     types: started
   repository_dispatch:
@@ -37,6 +37,6 @@ jobs:
         run: |
           npm run xm_sport
         env:
-          XM_UP: ${{ secrets.XM_UP }}
+          XM_LOGIN_TOKEN: ${{ secrets.XM_LOGIN_TOKEN }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
