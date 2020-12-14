@@ -28,7 +28,6 @@ if (!username || !password) {
 function changeStep() {
     const step = getRandom(21501, 22000)
     console.log(`准备刷步，步数定为 --> ${step}`)
-    console.log(username, password)
     const options = {
         url: 'https://4og.cn/xm/app/ajax.php',
         headers: {
