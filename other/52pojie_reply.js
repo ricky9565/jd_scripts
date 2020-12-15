@@ -1,6 +1,6 @@
 const iconv = require('iconv-lite');
-const urlencode = require('urlencode');
-const request = require('request')
+const querystring = require("querystring");
+const urlencode = require('urlencode')
 const cheerio = require("cheerio"); //文档转换
 
 const name = '吾爱破解签到'
@@ -18,12 +18,11 @@ const REPLY_MESSAGE = process.env.WUAIPOJIE_REPLY_MESSAGE || '666666666666666666
     // console.log(`找到${tList.length}个贴子，开始随机回复`)
     // const tid = tList[getRandom(0, tList.length - 1)]
     // await reply(tid)
-    // const question = await getReplyVerify()
-    // await replyVerify(question)
+    const question = await getReplyVerify()
+    await replyVerify(question)
     // const tList = await hotList()
     // console.log(`找到${tList.length}个贴子，开始随机回复`)
     // const tid = tList[getRandom(0, tList.length - 1)]
-    await reply(1223827)
 })()
     .catch((e) => {
         $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -171,19 +170,28 @@ function getReplyVerify() {
  * 回复验证
  */
 function replyVerify(data) {
+    const params = {
+        mod: 'secqaa',
+        action: 'check',
+        inajax: '1',
+        idhash: 'qSAqv50',
+        secverify: data[1],
+    }
     const options = {
-        url: `https://www.52pojie.cn/misc.php?mod=secqaa&action=check&inajax=1&modid=&idhash=qSAqv50&secverify=${urlencode(data[1], 'gbk')}`,
+        url: `https://www.52pojie.cn/misc.php?${querystring.stringify(params, null, null, {encodeURIComponent: gbkEncodeURIComponent})}`,
         headers: {
             'Cookie': cookie,
             'User-Agent': UA,
             'Origin': 'https://www.52pojie.cn',
             'Referer': `https://www.52pojie.cn/thread-1312990-1-1.html`,
-            'Accept-Encoding': 'gzip, deflate, br'
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
         responseType: 'buffer'
     }
+    console.log(options.url)
     return new Promise((resolve) => {
-        request(options, async (err, resp, data) => {
+        $.get(options, async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)
@@ -203,6 +211,10 @@ function replyVerify(data) {
 //取随机数 min = 最小值 ； max = 最大值
 function getRandom(min, max) {
     return parseInt(Math.random() * (max - min + 1) + min);
+}
+
+function gbkEncodeURIComponent(str) {
+    return urlencode.encode(str, 'gb2312')
 }
 
 // prettier-ignore

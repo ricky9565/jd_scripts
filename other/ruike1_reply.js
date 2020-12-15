@@ -75,6 +75,10 @@ function hotList() {
     })
 }
 
+/**
+ * 随机回复贴子
+ * @param tid 贴子ID
+ */
 function reply(tid) {
     const options = {
         'method': 'POST',
@@ -118,6 +122,13 @@ function reply(tid) {
             }
         })
     })
+}
+
+/**
+ * 留言
+ * @param uid 用户ID
+ */
+function leaveMessage(uid) {
 }
 
 //取随机数 min = 最小值 ； max = 最大值

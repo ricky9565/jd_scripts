@@ -21,7 +21,7 @@ Node.js说明:
 抓取Cookie说明:
 浏览器打开 https://www.52pojie.cn/home.php 登录账号后, 开启抓包软件并刷新页面.
 抓取该URL请求头下的Cookie字段, 填入以下CookieWA的单引号内即可. */
-
+const iconv = require('iconv-lite');
 const CookieWA = process.env.POJIE52_COOKIE
 
 /***********************
@@ -79,19 +79,21 @@ function checkin() {
         url: 'https://www.52pojie.cn/home.php?mod=task&do=apply&id=2&mobile=no',
         headers: {
             Cookie: CookieWA || $.getdata("CookieWA"),
-        }
+        },
+        'responseType': 'buffer'
     }, function(error, response, data) {
         if (error && !data) {
             $.log(error);
             $.msg("吾爱破解", "签到请求失败 ‼️‼️", error)
         } else {
-            if (data.match(/(ÒÑÍê³É|\u606d\u559c\u60a8|��̳΢�š��ᰮ�ƽ�)/)) {
+            data = iconv.decode(data, 'gb2312').toString('utf8')
+            if (data.match(/(恭喜您)/)) {
                 $.msg("吾爱破解", "", date.getMonth() + 1 + "月" + date.getDate() + "日, 签到成功 🎉")
-            } else if (data.match(/(ÄúÒÑ|\u4e0b\u671f\u518d\u6765|>��Ǹ������)/)) {
+            } else if (data.match(/(下期再来)/)) {
                 $.msg("吾爱破解", "", date.getMonth() + 1 + "月" + date.getDate() + "日, 已签过 ⚠️")
-            } else if (data.match(/(ÏÈµÇÂ¼|\u9700\u8981\u5148\u767b\u5f55|�Ҫ�ȵ�¼���ܼ�)/)) {
+            } else if (data.match(/(需要先登录)/)) {
                 $.msg("吾爱破解", "", "签到失败, Cookie失效 ‼️‼️")
-            } else if (response.statusCode == 403) {
+            } else if (response.statusCode === 403) {
                 $.msg("吾爱破解", "", "服务器暂停签到 ⚠️")
             } else {
                 $.msg("吾爱破解", "", "脚本待更新 ‼️‼️")
