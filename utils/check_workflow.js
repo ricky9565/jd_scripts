@@ -38,7 +38,7 @@ const scripts = fs.readdirSync('./').filter(it => it.includes('.js')).map(it => 
 const workflows = fs.readdirSync('./.github/workflows').map(it => it.replace('.yml', ''))
 // console.log('workflows: ', workflows)
 let conflicts = scripts.filter(it => {
-    return !workflows.includes(it) && !whiteList.includes(it)
+    return !workflows.includes(it) && !whiteList.includes(`${it}.js`)
 })
 
 console.log(`未添加workflow --> ${conflicts}`)
