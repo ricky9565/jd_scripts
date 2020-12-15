@@ -5,11 +5,11 @@ const cheerio = require("cheerio"); //文档转换
 
 const name = '吾爱破解签到'
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'
-const FORM_HASH = '9a137856'
+const FORM_HASH = 'd5876384'
 
 const $ = new Env(name)
-let cookie = process.env.WUAIPOJIE_COOKIE || 'htVD_2132_saltkey=RT4KgRzn; htVD_2132_lastvisit=1607435235; htVD_2132_auth=5be4kK9QMJcpehSEC21VabHhGr9VtJp%2BngABniXvKCH2zxUIkDqnffOmSmxkUePnAkqkp9KiUgKuuuo%2BnMTbjg12XQg; htVD_2132_connect_is_bind=1; htVD_2132_atarget=1; htVD_2132_smile=1D1; htVD_2132_lastviewtime=552401%7C1607656529; htVD_2132_visitedfid=16D8; htVD_2132_sid=0; htVD_2132_ulastactivity=1607840830%7C0; wzws_cid=89408b4262a003aa100fa1b32cb2ba03926e07aa50310b8dbb28acfeb88fcfdcf30a2383c95aa0b0690a72f64284b98bbd7d69a0a2a5f1b65cbc71eef0c8ac5e1bdf0c8a3113acf1efa9c7ee6c8f37db; Hm_lvt_46d556462595ed05e05f009cdafff31a=1607655726,1607656515,1607751179,1607841120; Hm_lpvt_46d556462595ed05e05f009cdafff31a=1607841120; htVD_2132_lastcheckfeed=552401%7C1607841176; htVD_2132_st_t=552401%7C1607841180%7C8fa2087c69d31a64bc05283b6849efc5; htVD_2132_forum_lastvisit=D_16_1607841180; htVD_2132_viewid=tid_1312990; htVD_2132_secqaaqS0=623023.a481a127b954f837b5; htVD_2132_secqaaqSAZq40=623090.83c62d50c2f565940c; htVD_2132_secqaaqSAkCc0=626556.ccccb9f806465b40bf; htVD_2132_st_p=552401%7C1607841865%7Cf178ae63761908021f780928f9eaf0d9'
-// const REPLY_MESSAGE = '[img=1,1]https://www.ruike1.com/?fromuid=8159[/img]\n666666666666666666'
+let cookie = process.env.WUAIPOJIE_COOKIE ||
+    'htVD_2132_saltkey=RT4KgRzn; htVD_2132_lastvisit=1607435235; htVD_2132_auth=5be4kK9QMJcpehSEC21VabHhGr9VtJp%2BngABniXvKCH2zxUIkDqnffOmSmxkUePnAkqkp9KiUgKuuuo%2BnMTbjg12XQg; htVD_2132_connect_is_bind=1; htVD_2132_atarget=1; htVD_2132_smile=1D1; htVD_2132_lastviewtime=552401%7C1607656529; htVD_2132_visitedfid=16D8; htVD_2132_sid=0; htVD_2132_ulastactivity=1607840830%7C0; wzws_cid=89408b4262a003aa100fa1b32cb2ba03926e07aa50310b8dbb28acfeb88fcfdcf30a2383c95aa0b0690a72f64284b98bbd7d69a0a2a5f1b65cbc71eef0c8ac5e1bdf0c8a3113acf1efa9c7ee6c8f37db; Hm_lvt_46d556462595ed05e05f009cdafff31a=1607655726,1607656515,1607751179,1607841120; Hm_lpvt_46d556462595ed05e05f009cdafff31a=1607841120; htVD_2132_lastcheckfeed=552401%7C1607841176; htVD_2132_st_t=552401%7C1607841180%7C8fa2087c69d31a64bc05283b6849efc5; htVD_2132_forum_lastvisit=D_16_1607841180; htVD_2132_viewid=tid_1312990; htVD_2132_secqaaqS0=623023.a481a127b954f837b5; htVD_2132_secqaaqSAZq40=623090.83c62d50c2f565940c; htVD_2132_secqaaqSAkCc0=626556.ccccb9f806465b40bf; htVD_2132_st_p=552401%7C1607841865%7Cf178ae63761908021f780928f9eaf0d9;htVD_2132_lastact=1608012642%09misc.php%09secqaa;'
 const REPLY_MESSAGE = process.env.WUAIPOJIE_REPLY_MESSAGE || '666666666666666666'
 
 !(async () => {
@@ -18,8 +18,12 @@ const REPLY_MESSAGE = process.env.WUAIPOJIE_REPLY_MESSAGE || '666666666666666666
     // console.log(`找到${tList.length}个贴子，开始随机回复`)
     // const tid = tList[getRandom(0, tList.length - 1)]
     // await reply(tid)
-    const question = await getReplyVerify()
-    await replyVerify(question)
+    // const question = await getReplyVerify()
+    // await replyVerify(question)
+    // const tList = await hotList()
+    // console.log(`找到${tList.length}个贴子，开始随机回复`)
+    // const tid = tList[getRandom(0, tList.length - 1)]
+    await reply(1223827)
 })()
     .catch((e) => {
         $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -74,13 +78,13 @@ function hotList() {
     })
 }
 
-function reply(tid) {
+function reply(tid, data) {
     const options = {
         'method': 'POST',
-        'url': `https://www.ruike1.com/forum.php?mod=post&infloat=yes&action=reply&fid=47&extra=&tid=${tid}&replysubmit=yes&inajax=1`,
+        'url': `https://www.52pojie.cn/forum.php?mod=post&infloat=yes&action=reply&fid=2&extra=page%3D1&tid=${tid}&replysubmit=yes&inajax=1`,
         'headers': {
-            'Origin': 'https://www.ruike1.com',
-            'Referer': `https://www.ruike1.com/thread-${tid}-1-1.html`,
+            'Origin': 'https://www.52pojie.cn',
+            'Referer': `https://www.52pojie.cn/thread-${tid}-1-1.html`,
             'User-Agent': UA,
             'Cookie': cookie
         },
@@ -92,7 +96,9 @@ function reply(tid) {
             'noticeauthormsg': '',
             'usesig': '1',
             'subject': '',
-            'message': REPLY_MESSAGE
+            'message': 'www.52pojie.cn',
+            secqaahash: 'qSAqv50',
+            secanswer: '%BD%FB%D6%B9%C7%F3%CD%D1%C7%F3%C6%C6'
         },
         'responseType': 'buffer'
     }
@@ -124,7 +130,7 @@ function reply(tid) {
  */
 function getReplyVerify() {
     const options = {
-        'url': 'https://www.52pojie.cn/misc.php?mod=secqaa&action=update&idhash=qSArM50&0.97506465277437',
+        'url': 'https://www.52pojie.cn/misc.php?mod=secqaa&action=update&idhash=qSAqv50&0.97506465277437',
         'headers': {
             'Cookie': cookie,
             'User-Agent': UA,
@@ -166,7 +172,7 @@ function getReplyVerify() {
  */
 function replyVerify(data) {
     const options = {
-        url: `https://www.52pojie.cn/misc.php?mod=secqaa&action=check&inajax=1&modid=&idhash=qSAmbG0&secverify=${urlencode(data[1], 'gbk')}`.replace(/%/g, '%25'),
+        url: `https://www.52pojie.cn/misc.php?mod=secqaa&action=check&inajax=1&modid=&idhash=qSAqv50&secverify=${urlencode(data[1], 'gbk')}`,
         headers: {
             'Cookie': cookie,
             'User-Agent': UA,
@@ -177,7 +183,7 @@ function replyVerify(data) {
         responseType: 'buffer'
     }
     return new Promise((resolve) => {
-        $.get(options, async (err, resp, data) => {
+        request(options, async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)
