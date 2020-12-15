@@ -1,6 +1,4 @@
 const iconv = require('iconv-lite');
-const querystring = require("querystring");
-const urlencode = require('urlencode')
 const cheerio = require("cheerio"); //文档转换
 
 const name = '吾爱破解签到'
@@ -137,7 +135,6 @@ function getReplyVerify() {
             'Referer': `https://www.52pojie.cn/thread-1312990-1-1.html`,
             'Accept-Encoding': 'gzip, deflate, br'
         },
-        'responseType': 'buffer'
     }
     return new Promise((resolve) => {
         $.get(options, async (err, resp, data) => {
@@ -146,7 +143,6 @@ function getReplyVerify() {
                     console.log(`${JSON.stringify(err)}`)
                     console.log(`${$.name} API请求失败，请检查网路重试`)
                 } else {
-                    data = iconv.decode(data, 'gb2312').toString('utf8')
                     const reg = /sectplcode\[2] \+ '(.*)' \+ sectplcode\[3]/
                     let res = data.match(reg)
                     data = res[1].split('？答案：')
@@ -170,15 +166,8 @@ function getReplyVerify() {
  * 回复验证
  */
 function replyVerify(data) {
-    const params = {
-        mod: 'secqaa',
-        action: 'check',
-        inajax: '1',
-        idhash: 'qSAqv50',
-        secverify: data[1],
-    }
     const options = {
-        url: `https://www.52pojie.cn/misc.php?${querystring.stringify(params, null, null, {encodeURIComponent: gbkEncodeURIComponent})}`,
+        url: `https://www.52pojie.cn/misc.php?mod=secqaa&action=check&inajax=1&idhash=qSAqv50&secverify=${data[1]}`,
         headers: {
             'Cookie': cookie,
             'User-Agent': UA,
@@ -187,7 +176,6 @@ function replyVerify(data) {
             'Accept-Encoding': 'gzip, deflate, br',
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        responseType: 'buffer'
     }
     console.log(options.url)
     return new Promise((resolve) => {
@@ -197,7 +185,7 @@ function replyVerify(data) {
                     console.log(`${JSON.stringify(err)}`)
                     console.log(`${$.name} API请求失败，请检查网路重试`)
                 } else {
-                    console.log(iconv.decode(data, 'gb2312').toString('utf8'))
+                    console.log(data)
                 }
             } catch (e) {
                 $.logErr(e, resp);
@@ -211,10 +199,6 @@ function replyVerify(data) {
 //取随机数 min = 最小值 ； max = 最大值
 function getRandom(min, max) {
     return parseInt(Math.random() * (max - min + 1) + min);
-}
-
-function gbkEncodeURIComponent(str) {
-    return urlencode.encode(str, 'gb2312')
 }
 
 // prettier-ignore
