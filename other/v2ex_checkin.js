@@ -1,9 +1,34 @@
 const HOST_NAME = 'https://www.v2ex.com'
+const cheerio = require("cheerio"); //文档转换
 const $ = new Env('V2EX签到')
 const notify = $.isNode() ? require('../sendNotify') : '';
 $.message = ''
 
-const check = (cookie) => {
+!(async () => {
+    if (process.env.V2EX_COOKIE) {
+        const cookies = process.env.V2EX_COOKIE.split('&')
+        console.log(`您提供了${cookies.length}个账号，即将开始签到`)
+        for (let i = 0; i < cookies.length; i++) {
+            console.log(cookies[i])
+            const cookie = cookies[i]
+            const isCheck = await check(cookie)
+            if (isCheck) {
+                await checkin(cookie)
+                await balance(cookie)
+                console.log($.message)
+            }
+            await notify.sendNotify(`${$.name}-`, $.message)
+        }
+    }
+})()
+    .catch((e) => {
+        $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
+    })
+    .finally(() => {
+        $.done()
+    })
+
+function check(cookie) {
     return new Promise(resolve => {
         const option = {
             url: `${HOST_NAME}/mission/daily`,
@@ -41,7 +66,7 @@ const check = (cookie) => {
     })
 }
 
-const checkin = (cookie) => {
+function checkin(cookie) {
     return new Promise(resolve => {
         const option = {
             url: `${HOST_NAME}/mission/daily/redeem?once=${$.once}`,
@@ -52,13 +77,12 @@ const checkin = (cookie) => {
         }
         $.get(option, (err, resp, data) => {
             try {
-                console.log(data)
                 if (err) {
                     console.log('\n签到失败')
                 } else {
                     const regex = /已成功领取每日登录奖励/
                     if (regex.test(data)) {
-                        $.message += '签到成功'
+                        $.message += '\n签到成功'
                     }
                 }
             } catch (e) {
@@ -70,27 +94,35 @@ const checkin = (cookie) => {
     })
 }
 
-!(async () => {
-    if (process.env.V2EX_COOKIE) {
-        const cookies = process.env.V2EX_COOKIE.split('&')
-        console.log(`您提供了${cookies.length}个账号，即将开始签到`)
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i]
-            const isCheckin = await check(cookie)
-            if (!isCheckin) {
-                await checkin(cookie)
-            }
-            console.log($.message)
-            await notify.sendNotify(`${$.name}-`, $.message)
+/**
+ * 查看我的余额
+ */
+function balance(cookie) {
+    const options = {
+        url: `${HOST_NAME}/balance`,
+        headers: {
+            'cookie': cookie,
+            'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1'
         }
     }
-})()
-    .catch((e) => {
-        $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
+    return new Promise((resolve) => {
+        $.get(options, async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${JSON.stringify(err)}`)
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    let doc = cheerio.load(data);
+                    $.message += `\n当前账户余额 --> ${doc('.balance_area.bigger').text()}`
+                }
+            } catch (e) {
+                $.logErr(e, resp);
+            } finally {
+                resolve(data);
+            }
+        })
     })
-    .finally(() => {
-        $.done()
-    })
+}
 
 function Env(t, e) {
     class s {
