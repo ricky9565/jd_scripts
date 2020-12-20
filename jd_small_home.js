@@ -60,7 +60,7 @@ if ($.isNode()) {
   cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
   cookiesArr.reverse();
 }
-
+$.newShareCodes = [];
 const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
 
 !(async () => {
@@ -128,7 +128,7 @@ const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
 async function smallHome() {
   await loginHome();
   await ssjjRooms();
-  await createInviteUser();
+  // await createInviteUser();
   if (!$.isUnLock) return;
   await queryDraw();
   await lottery();
@@ -526,6 +526,7 @@ function createInviteUser() {
                 if (data.body.id) {
                   console.log(`\n您的${$.name}shareCode(每天都是变化的):【${data.body.id}】\n`);
                   $.inviteCodes.push(data.body.id);
+                  $.newShareCodes.push(data.body.id);
                 }
               }
             }
