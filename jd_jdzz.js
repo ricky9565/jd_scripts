@@ -213,7 +213,7 @@ function getUserTuanInfo() {
                 } else {
                     if (safeGet(data)) {
                         data = JSON.parse(data);
-                        if (!data.data.canStartNewAssist)
+                        if (!data.data || !data.data.canStartNewAssist)
                             $.tuan = {
                                 "activityIdEncrypted": data.data.id,
                                 "assistStartRecordId": data.data.assistStartRecordId,
