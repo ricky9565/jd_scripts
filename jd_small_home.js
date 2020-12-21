@@ -41,7 +41,6 @@ const $ = new Env('东东小窝');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-$.inviteCodes = []
 
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message = '';
@@ -92,7 +91,7 @@ const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
     }
   }
   // 获取到每个账号的助力码，开始助力
-  console.log(`获取到${$.inviteCodes.length}个助力码，开始助力`)
+  console.log(`获取到${$.newShareCodes.length}个助力码，开始助力`)
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -100,10 +99,8 @@ const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
       if ($.newShareCodes.length > 1) {
         let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]
         console.log(`\n${$.UserName}去给自己的下一账号${decodeURIComponent(cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/) && cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/)[1])}助力\n`)
-        $.log(`自己的下一账号${decodeURIComponent(cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/) && cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/)[1])}，助力码为 ${code}`)
         await createAssistUser(code, $.createAssistUserID || "1318106976846299138");
       }
-      await helpFriends();
     }
   }
 
@@ -118,8 +115,9 @@ const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
 async function smallHome() {
   await loginHome();
   await ssjjRooms();
-  // await createInviteUser();
+  // await helpFriends();
   if (!$.isUnLock) return;
+  await createInviteUser();
   await queryDraw();
   await lottery();
   await doAllTask();
@@ -515,7 +513,6 @@ function createInviteUser() {
               if (data.body) {
                 if (data.body.id) {
                   console.log(`\n您的${$.name}shareCode(每天都是变化的):【${data.body.id}】\n`);
-                  $.inviteCodes.push(data.body.id);
                   $.newShareCodes.push(data.body.id);
                 }
               }
