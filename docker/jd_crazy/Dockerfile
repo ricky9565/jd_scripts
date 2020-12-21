@@ -19,6 +19,9 @@ RUN git clone https://gitee.com/qq1398371419/jd_scripts /scripts \
 
 ENV JD_COOKIE=''
 
+COPY entrypoint.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 WORKDIR /scripts
 
-ENTRYPOINT ["node","/scripts/jd_crazy.js"]
+ENTRYPOINT ["entrypoint.sh"]
