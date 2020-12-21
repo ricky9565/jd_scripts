@@ -19,6 +19,10 @@ docker run -dit \
   qq1398371419/jd_crazy
 ```
 
+环境变量
+- JD_COOKIE 通用京东cookie，只能以'&'分割
+- MERGE_WAIT 多久运行一次购买合并joy，默认1分钟
+- PRODUCE_WAIT 多久运行一次模拟挂机，默认1秒
 
 
 

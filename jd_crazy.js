@@ -14,7 +14,7 @@ const JD_API_HOST = 'https://api.m.jd.com';
 let randomCount = $.isNode() ? 20 : 5;
 $.joyIds = []
 const BUY_JOY_LEVEL = 28
-const MERGE_WAIT = process.env.MERGE_WAIT || 1000 * 60 * 30 // 默认30分钟一次购买合并
+const MERGE_WAIT = process.env.MERGE_WAIT || 1000 * 60 // 默认30分钟一次购买合并
 const PRODUCE_WAIT = process.env.PRODUCE_WAIT || 1000 // 默认1秒一次模拟挂机
 
 !(async () => {
@@ -54,6 +54,7 @@ const PRODUCE_WAIT = process.env.PRODUCE_WAIT || 1000 // 默认1秒一次模拟�
   })
 
 class CrazyJoy {
+  _max_level={} // 最高级别的joy
   constructor(index, cookie, nickName) {
     this._index = index
     this._cookie = cookie
@@ -74,7 +75,7 @@ class CrazyJoy {
     for (let i = 0; i < $.joyIds.length; i++) {
       let joy = $.joyIds[i]
       if (joy === 0) {
-        await trade(BUY_JOY_LEVEL)
+        await this.trade(BUY_JOY_LEVEL)
         await $.wait(1000)
       }
     }
@@ -117,6 +118,7 @@ class CrazyJoy {
               console.log(`当前joy币 ${data.data.totalCoinAmount}`)
               console.log(`离线收益 ${data.data.offlineCoinAmount}`)
               console.log(`最高级别的joy ${data.data.userTopLevelJoyId}级`)
+              this._max_level = data.data.userTopLevelJoyId
               $.joyIds = data.data.joyIds
             }
           }
@@ -256,6 +258,9 @@ class CrazyJoy {
 
 // 购买joy
   trade(joyLevel) {
+    if(joyLevel > this._max_level) {
+      joyLevel = this._max_level
+    }
     const body = {"action": "BUY", "joyId": joyLevel, "boxId": ""}
     return new Promise((resolve) => {
       $.get(this.taskUrl('crazyJoy_joy_trade', body), async (err, resp, data) => {
