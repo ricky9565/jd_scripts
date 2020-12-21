@@ -7,12 +7,12 @@
  */
 
 const $ = new Env('疯狂的joy');
-let cookiesArr = [], cookie = '', isBox = false, notify;
+let cookiesArr = [], isBox = false, notify;
 let message = '', subTitle = '', option = {};
 let jdNotify = false;//是否关闭通知，false打开通知推送，true关闭通知推送
 const JD_API_HOST = 'https://api.m.jd.com';
 let randomCount = $.isNode() ? 20 : 5;
-const BUY_JOY_LEVEL = 28
+const BUY_JOY_LEVEL = 28 // 默认购买的joy等级
 const MERGE_WAIT = process.env.MERGE_WAIT ? process.env.MERGE_WAIT : 1000 * 60 // 默认1分钟一次购买合并
 const PRODUCE_WAIT = process.env.PRODUCE_WAIT ? process.env.PRODUCE_WAIT : 1000 // 默认1秒一次模拟挂机
 
@@ -24,7 +24,7 @@ const PRODUCE_WAIT = process.env.PRODUCE_WAIT ? process.env.PRODUCE_WAIT : 1000 
   }
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
-      cookie = cookiesArr[i];
+      let cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
       $.index = i + 1;
       $.isLogin = true;
@@ -344,7 +344,7 @@ class CrazyJoy {
     return {
       url: `${JD_API_HOST}/?body=${encodeURIComponent(JSON.stringify(body))}&appid=crazy_joy&functionId=${functionId}&t=${Date.now()}&uts=b8bf8319bc0e120e166849cb7e957d335fe01979`,
       headers: {
-        'Cookie': cookie,
+        'Cookie': this._cookie,
         'Accept': '*/*',
         'Connection': 'keep-alive',
         'User-Agent': 'jdpingou;iPhone;3.15.2;14.2;ae75259f6ca8378672006fc41079cd8c90c53be8;network/wifi;model/iPhone10,2;appBuild/100365;ADID/00000000-0000-0000-0000-000000000000;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/0;hasOCPay/0;supportBestPay/0;session/158;pap/JA2015_311210;brand/apple;supportJDSHWK/1;Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148',
