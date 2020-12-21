@@ -29,7 +29,7 @@ const PRODUCE_WAIT = process.env.PRODUCE_WAIT ? process.env.PRODUCE_WAIT : 1000 
       $.index = i + 1;
       $.isLogin = true;
       $.nickName = '';
-      await TotalBean();
+      await TotalBean(cookie);
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
@@ -357,7 +357,7 @@ class CrazyJoy {
 
 }
 
-function TotalBean() {
+function TotalBean(cookie) {
   return new Promise(async resolve => {
     const options = {
       "url": `https://wq.jd.com/user/info/QueryJDUserInfo?sceneval=2`,
