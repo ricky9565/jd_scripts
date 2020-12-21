@@ -97,21 +97,11 @@ const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
-      $.index = i + 1;
-      $.isLogin = true;
-      $.nickName = '';
-      message = '';
-      await TotalBean();
-      console.log(`\n*******开始【京东账号${$.index}】${$.nickName || $.UserName}********\n`);
-      if (!$.isLogin) {
-        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
-
-        if ($.isNode()) {
-          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : ""}`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
-        }
-        continue
+      if ($.newShareCodes.length > 1) {
+        let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]
+        console.log(`\n${$.UserName}去给自己的下一账号${decodeURIComponent(cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/) && cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/)[1])}助力\n`)
+        $.log(`自己的下一账号${decodeURIComponent(cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/) && cookiesArr[(i + 1) % $.newShareCodes.length].match(/pt_pin=(.+?);/)[1])}，助力码为 ${code}`)
+        await createAssistUser(code, $.createAssistUserID || "1318106976846299138");
       }
       await helpFriends();
     }
