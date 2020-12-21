@@ -24,5 +24,12 @@ docker run -dit \
 - MERGE_WAIT 多久运行一次购买合并joy，默认1分钟
 - PRODUCE_WAIT 多久运行一次模拟挂机，默认1秒
 
+### docker-compose
+下载https://github.com/gcdd1993/jd_scripts/blob/master/docker/jd_crazy/jd_crazy.yml
+```bash
+mkdir -p /data/jd_crazy/logs && \
+cd /data/jd_crazy && \
+docker-compose -f jd_crazy.yml up -d && docker-compose -f jd_crazy.yml logs -f
+```
 
 
