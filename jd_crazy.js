@@ -12,7 +12,6 @@ let message = '', subTitle = '', option = {};
 let jdNotify = false;//是否关闭通知，false打开通知推送，true关闭通知推送
 const JD_API_HOST = 'https://api.m.jd.com';
 let randomCount = $.isNode() ? 20 : 5;
-$.joyIds = []
 const BUY_JOY_LEVEL = 28
 const MERGE_WAIT = process.env.MERGE_WAIT ? process.env.MERGE_WAIT : 1000 * 60 // 默认1分钟一次购买合并
 const PRODUCE_WAIT = process.env.PRODUCE_WAIT ? process.env.PRODUCE_WAIT : 1000 // 默认1秒一次模拟挂机
@@ -55,6 +54,8 @@ const PRODUCE_WAIT = process.env.PRODUCE_WAIT ? process.env.PRODUCE_WAIT : 1000 
 
 class CrazyJoy {
   _max_level = {} // 最高级别的joy
+  _joyIds = []
+
   constructor(index, cookie, nickName) {
     this._index = index
     this._cookie = cookie
@@ -71,17 +72,17 @@ class CrazyJoy {
   async checkAndMerge() {
     // 购买
     await this.joyList()
-    console.log(`joy列表 ${$.joyIds}`)
-    for (let i = 0; i < $.joyIds.length; i++) {
-      let joy = $.joyIds[i]
+    console.log(`joy列表 ${this._joyIds}`)
+    for (let i = 0; i < this._joyIds.length; i++) {
+      let joy = this._joyIds[i]
       if (joy === 0) {
         await this.trade(BUY_JOY_LEVEL)
-        this.wait(1000)
+        await $.wait(1000)
       }
     }
     await this.joyList()
     // 开始合并
-    let maybe = calc($.joyIds)
+    let maybe = calc(this._joyIds)
     for (const it of Object.keys(maybe)) {
       let v = maybe[it]
       if (it > 0 && it < 34) {
@@ -89,7 +90,7 @@ class CrazyJoy {
           // 只合并一次，因为合并后joy索引会变化
           console.log(it)
           await this.moveOrMerge(v[0], v[1])
-          this.wait(1000 * 3)
+          await $.wait(1000 * 3)
         }
       }
     }
@@ -119,7 +120,7 @@ class CrazyJoy {
               console.log(`离线收益 ${data.data.offlineCoinAmount}`)
               console.log(`最高级别的joy ${data.data.userTopLevelJoyId}级`)
               this._max_level = data.data.userTopLevelJoyId
-              $.joyIds = data.data.joyIds
+              this._joyIds = data.data.joyIds
             }
           }
         } catch (e) {
@@ -148,7 +149,7 @@ class CrazyJoy {
             data = JSON.parse(data);
             // console.log('ddd----ddd', data)
             if (data.success && data.data.joyIds) {
-              $.joyIds = data.data.joyIds
+              this._joyIds = data.data.joyIds
             }
           }
         } catch (e) {
@@ -354,9 +355,6 @@ class CrazyJoy {
     }
   }
 
-  wait(timeout) {
-    setTimeout(__ => __,timeout)
-  }
 }
 
 function TotalBean() {
