@@ -76,7 +76,7 @@ class CrazyJoy {
       let joy = $.joyIds[i]
       if (joy === 0) {
         await this.trade(BUY_JOY_LEVEL)
-        await $.wait(1000)
+        this.wait(1000)
       }
     }
     await this.joyList()
@@ -89,7 +89,7 @@ class CrazyJoy {
           // 只合并一次，因为合并后joy索引会变化
           console.log(it)
           await this.moveOrMerge(v[0], v[1])
-          await $.wait(1000 * 3)
+          this.wait(1000 * 3)
         }
       }
     }
@@ -352,6 +352,10 @@ class CrazyJoy {
         'Accept-Encoding': 'gzip, deflate, br',
       }
     }
+  }
+
+  wait(timeout) {
+    setTimeout(__ => __,timeout)
   }
 }
 
