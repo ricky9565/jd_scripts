@@ -14,8 +14,8 @@ const JD_API_HOST = 'https://api.m.jd.com';
 let randomCount = $.isNode() ? 20 : 5;
 $.joyIds = []
 const BUY_JOY_LEVEL = 28
-const MERGE_WAIT = 1000 * 60 * 30 // 默认30分钟一次购买合并
-const PRODUCE_WAIT = 1000 // 默认1秒一次模拟挂机
+const MERGE_WAIT = process.env.MERGE_WAIT || 1000 * 60 * 30 // 默认30分钟一次购买合并
+const PRODUCE_WAIT = process.env.PRODUCE_WAIT || 1000 // 默认1秒一次模拟挂机
 
 !(async () => {
   await requireConfig();
