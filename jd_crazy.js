@@ -53,8 +53,9 @@ const PRODUCE_WAIT = process.env.PRODUCE_WAIT ? process.env.PRODUCE_WAIT : 1000 
   })
 
 class CrazyJoy {
-  _max_level = {} // 最高级别的joy
   _joyIds = []
+  _shop = []
+  ctx = {}
 
   constructor(index, cookie, nickName) {
     this._index = index
@@ -72,9 +73,11 @@ class CrazyJoy {
   async checkAndMerge() {
     // 购买
     await this.joyList()
-    console.log(`joy列表 ${this._joyIds}`)
-    for (let i = 0; i < this._joyIds.length; i++) {
-      let joy = this._joyIds[i]
+    // 刷新商店
+    await this.shop()
+    console.log(`joy列表 ${this.ctx.joyIds}`)
+    for (let i = 0; i < this.ctx.joyIds.length; i++) {
+      let joy = this.ctx.joyIds[i]
       if (joy === 0) {
         await this.trade(BUY_JOY_LEVEL)
         await $.wait(1000)
@@ -82,7 +85,7 @@ class CrazyJoy {
     }
     await this.joyList()
     // 开始合并
-    let maybe = calc(this._joyIds)
+    let maybe = calc(this.ctx.joyIds)
     for (const it of Object.keys(maybe)) {
       let v = maybe[it]
       if (it > 0 && it < 34) {
@@ -115,12 +118,11 @@ class CrazyJoy {
             data = JSON.parse(data);
             // console.log('ddd----ddd', data)
             if (data.success) {
-              console.log(`邀请码 ${data.data.userInviteCode}`)
-              console.log(`当前joy币 ${data.data.totalCoinAmount}`)
-              console.log(`离线收益 ${data.data.offlineCoinAmount}`)
-              console.log(`最高级别的joy ${data.data.userTopLevelJoyId}级`)
-              this._max_level = data.data.userTopLevelJoyId
-              this._joyIds = data.data.joyIds
+              this.ctx = data.data
+              console.log(`邀请码 ${this.ctx.userInviteCode}`)
+              console.log(`当前joy币 ${this.ctx.totalCoinAmount}`)
+              console.log(`离线收益 ${this.ctx.offlineCoinAmount}`)
+              console.log(`最高级别的joy ${this.ctx.userTopLevelJoyId}级`)
             }
           }
         } catch (e) {
@@ -147,9 +149,9 @@ class CrazyJoy {
             console.log(`${$.name} API请求失败，请检查网路重试`)
           } else {
             data = JSON.parse(data);
-            // console.log('ddd----ddd', data)
+            console.log('ddd----ddd', data)
             if (data.success && data.data.joyIds) {
-              this._joyIds = data.data.joyIds
+              this.ctx = data.data
             }
           }
         } catch (e) {
@@ -259,9 +261,26 @@ class CrazyJoy {
 
 // 购买joy
   trade(joyLevel) {
-    if (joyLevel > this._max_level) {
-      joyLevel = this._max_level
+    // 默认只能购买最高等级-1 级的joy
+    const allowMaxLevel = this._shop[this._shop.length - 2]
+    let cost = 0
+    if (allowMaxLevel.joyId < joyLevel) {
+      joyLevel = allowMaxLevel.joyId
+      cost = allowMaxLevel.coins
+    } else {
+      for (let i = 0; i < this._shop; i++) {
+        let it = this._shop[i]
+        if (it.joyId == joyLevel) {
+          cost = it.coins
+          break
+        }
+      }
     }
+    if (this.ctx.totalCoinAmount < cost) {
+      console.log(`买不起等级为${joyLevel}的joy，需要${cost}，当前${this.ctx.totalCoinAmount}，跳过`)
+      return
+    }
+    console.log(`购买${joyLevel} ${this._max_level} ${this._max_level < joyLevel}`)
     const body = {"action": "BUY", "joyId": joyLevel, "boxId": ""}
     return new Promise((resolve) => {
       $.get(this.taskUrl('crazyJoy_joy_trade', body), async (err, resp, data) => {
@@ -329,6 +348,31 @@ class CrazyJoy {
             console.log(data)
             if (data.success) {
               console.log(`合并成功 下标${from} --> ${to} = ${data.data.newJoyId}`)
+            }
+          }
+        } catch (e) {
+          $.logErr(e, resp);
+        } finally {
+          resolve(data);
+        }
+      })
+    })
+  }
+
+  // 查看商店
+  shop() {
+    const body = {"paramData": {"entry": "SHOP"}}
+    return new Promise((resolve) => {
+      $.get(this.taskUrl('crazyJoy_joy_allowBoughtList', body), async (err, resp, data) => {
+        try {
+          if (err) {
+            console.log(`${JSON.stringify(err)}`)
+            console.log(`${$.name} API请求失败，请检查网路重试`)
+          } else {
+            data = JSON.parse(data);
+            console.log(data)
+            if (data.success) {
+              this._shop = data.data.shop
             }
           }
         } catch (e) {
