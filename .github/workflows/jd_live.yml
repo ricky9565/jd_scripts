@@ -10,7 +10,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: split
+    types: jd_scripts
 jobs:
   build:
 

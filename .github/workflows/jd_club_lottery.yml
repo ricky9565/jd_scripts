@@ -10,7 +10,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: club_lottery
+    types: jd_scripts
 jobs:
   build:
 
