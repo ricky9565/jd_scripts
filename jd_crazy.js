@@ -293,6 +293,8 @@ class CrazyJoy {
             console.log(data)
             if (data.success) {
               console.log(`购买${joyLevel}级joy成功， 花费${data.data.coins}，下次购买费用 --> ${data.data.nextBuyPrice}， 剩余joy币 --> ${data.data.totalCoins}`)
+              //更新当前剩余金币数量
+              this.ctx.totalCoinAmount = data.data.totalCoins
             } else {
               console.log(data.message)
             }
