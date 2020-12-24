@@ -1,3 +1,8 @@
+# 已废弃
+建议使用
+- https://github.com/lxk0301/jd_scripts/blob/master/jd_crazy_joy.js
+- https://github.com/lxk0301/jd_scripts/blob/master/jd_crazy_joy_coin.js
+
 # 疯狂的joy docker版
 ## 打包
 ```bash
@@ -31,7 +36,7 @@ mkdir -p /data/jd_crazy/logs && \
 cd /data/jd_crazy && \
 docker-compose -f jd_crazy.yml up -d && docker-compose -f jd_crazy.yml logs -f
 # 更新脚本，重新创建容器，entrypoint.sh会重新拉取最新代码
-docker-compose -f jd_crazy.yml down && docker-compose -f jd_crazy.yml up -d 
+docker-compose -f jd_crazy.yml down && docker-compose -f jd_crazy.yml up -d
 # 或者，直接进入容器内拉取最新代码
 docker exec -it 容器ID git pull
 ```
