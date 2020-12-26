@@ -2,7 +2,7 @@
  * @Author: lxk0301 https://github.com/lxk0301
  * @Date: 2020-12-06 18:19:21
  * @Last Modified by: lxk0301
- * @Last Modified time: 2020-12-06 22:58:02
+ * @Last Modified time: 2020-12-26 22:58:02
  */
 /*
 东东工厂，不是京喜工厂
@@ -272,7 +272,7 @@ async function helpFriends() {
 }
 
 async function doTask() {
-    for (let item of $.taskVos) {
+    if ($.taskVos && $.taskVos.length > 0) {for (let item of $.taskVos) {
         if (item.taskType === 1) {
             //关注店铺任务
             if (item.status === 1) {
@@ -366,7 +366,7 @@ async function doTask() {
                 console.log(`${item.taskName}已完成`);
             }
         }
-    }
+    }}
 }
 
 //领取做完任务的奖励
