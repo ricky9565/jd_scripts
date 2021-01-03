@@ -94,11 +94,11 @@ if (typeof $request !== 'undefined') {
         if (signtimes && signtimes < 5) {
           await WelfareCash();
         }
-        if (new Date().getTimezoneOffset() != '-480') {
-          continue
-        } else {
+        // if (new Date().getTimezoneOffset() != '-480') {
+        //   continue
+        // } else {
           await artTotal()
-        }
+        // }
         if ((150 - artcount) == 0 && (50 - videocount) == 0) {
           $.msg($.name + " 昵称:" + userName, $.sub, $.desc + "<今日阅读任务已完成>", {'media-url': calendarpic})
         }
@@ -472,7 +472,7 @@ function artList(readbodyVal) {
     }
     $.post(infourl, async (error, resp, data) => {
       let get_list = JSON.parse(data)
-      $.log( data)
+      // $.log( data)
       if (get_list.ret == "ok") {
         for (lists of get_list.artlist) {
           if (lists.item_type == "article") {
