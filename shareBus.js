@@ -107,6 +107,13 @@ const shareCodes = [
     jx: 'zYIEDEHCXJFDBsg_WN9Ptg==',
     zz: 'AUWE5mfvCxTUKADWp3SlIwA'
   },
+  // 王林杰
+  {
+    zd: '7uza6dcinwl3v7l4ryj4jiyyzgmtpbnifrhnfzi',
+    nc: '1f54af63767247c8bee99a03d287aff3',
+    jx: 'N7aAxrVHMz38sT_S5h_rhQ==',
+    zz: 'Svfp1Qxce9l3ePRnzkfYNdQ'
+  }
 ];
 $.result = []
 
