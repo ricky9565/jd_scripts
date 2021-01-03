@@ -71,7 +71,7 @@ if (typeof $request !== 'undefined') {
         apptoken = jsonBody['apptoken']
         appVersion = jsonBody['appversion']
         cookieval = `xz_jkd_appkey=${ID}!android!${appVersion}`
-        times = Date.parse(new Date())  / 1000 + 60 * 60 * 8 // try fix ac
+        times = Date.parse(new Date()) / 1000
         $.index = i + 1;
         console.log("聚看点账号" + $.index + "任务开始\n")
         await sign();
