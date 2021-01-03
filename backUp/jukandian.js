@@ -472,7 +472,7 @@ function artList(readbodyVal) {
     }
     $.post(infourl, async (error, resp, data) => {
       let get_list = JSON.parse(data)
-      $.log( data)
+      // $.log( data)
       if (get_list.ret == "ok") {
         for (lists of get_list.artlist) {
           if (lists.item_type == "article") {
