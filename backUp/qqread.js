@@ -159,7 +159,6 @@ function GetCookie() {
 async function QQ_READ() {
   for (let i = 0; i < QQ_READ_COOKIES.length; i++) {
     $.log(`\n*************开始QQ账号${i + 1}**************\n`);
-    tz = '';
     $.isLogin = true;
     if (!QQ_READ_COOKIES[i]["qqreadbodyVal"] || !QQ_READ_COOKIES[i]['qqreadtimeurlVal'] || !QQ_READ_COOKIES[i]['qqreadtimeheaderVal']) {
       $.log(`账号${i + 1}暂未提供脚本执行所需的cookie`);
@@ -219,12 +218,12 @@ async function QQ_READ() {
     if (task.data.user.amount >= 100000) {
       await qqreadwithdraw();
     }
-    await showmsg();//通知
   }
+  await showmsg();//通知
 }
 function showmsg() {
   return new Promise(async resolve => {
-    if (nowTimes.getHours() === 22 && (nowTimes.getMinutes() > 0 && nowTimes.getMinutes() <= 15)) {
+    if (nowTimes.getHours() === 22 && (nowTimes.getMinutes() > 45 && nowTimes.getMinutes() <= 59)) {
       await notify.sendNotify(jsname, tz);
     }
     $.msg(jsname, "", tz);
