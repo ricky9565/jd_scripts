@@ -43,7 +43,7 @@ let currentCookie = ''; // 当前用户 cookie
 let tokenNull = {'farm_jstoken': '', 'phoneid': '', 'timestamp': ''}; // 内置一份空的 token
 let tokenArr = []; // 用户 token 数组
 let currentToken = {}; // 当前用户 token
-const shareCode = '22bd6fbbabbaa770a45ab2607e7a1e8a@197c6094e965fdf3d33621b47719e0b1'; // 内置助力码
+const shareCode = '59bf724173ceaf49090d42aabfd6a690@8d2288f8f3e4fd47c52dd33d775ff4fd@e119fe4b1f09b20157bec90be61fbfc4@4e201daf059409ba0900fc137b5aac5f@0ed3d83a74446ba0f7ce7c9dac90ad8d@ec7c09064efb4f9433f1390fd5e682e3@720abdf1008738b1e848439ce87e0759@0435fb4b021726cf1a4a3ada8f385b51@16faab798b907d15e2c430eed36c3314@8f1df4251370da8a8cd46c9ec6f0c48a'; // 内置助力码
 let jxncShareCodeArr = []; // 用户 助力码 数组
 let currentShareCode = []; // 当前用户 要助力的助力码
 const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 打开京喜农场

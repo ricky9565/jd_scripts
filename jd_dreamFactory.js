@@ -37,9 +37,11 @@ let cookiesArr = [], cookie = '', message = '';
 const inviteCodes = [
   'n3AaXZttXXmX6mIJenJWjw==',
   'cgw1XF89J-1IWzDQICxWcg==',
+  'N7aAxrVHMz38sT_S5h_rhQ==',
   'tvUf4vUpkLF9KyitjqKI3A==',
   '5B1DFiNPLJNgrpvwANR-ew==',
-  'zYIEDEHCXJFDBsg_WN9Ptg=='
+  'zYIEDEHCXJFDBsg_WN9Ptg==',
+  'gXRQATVGJXE9dwO1eH2tuw==',
 ];
 const jdCookieNode = process.env.JD_JX_COOKIE.split('\n');
 if ($.isNode()) {

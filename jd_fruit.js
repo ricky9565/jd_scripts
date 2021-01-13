@@ -28,10 +28,7 @@ let cookiesArr = [], cookie = '', jdFruitShareArr = [], isBox = false, notify, n
 //此此内容是IOS用户下载脚本到本地使用，填写互助码的地方，同一京东账号的好友互助码请使用@符号隔开。
 //下面给出两个账号的填写示例（iOS只支持2个京东账号）
 let shareCodes = [ // 这个列表填入你要助力的好友的shareCode
-   //账号一的好友shareCode,不同好友的shareCode中间用@符号隔开
-  '0a74407df5df4fa99672a037eec61f7e@dbb21614667246fabcfd9685b6f448f3@6fbd26cc27ac44d6a7fed34092453f77@61ff5c624949454aa88561f2cd721bf6@56db8e7bc5874668ba7d5195230d067a@',
-  //账号二的好友shareCode,不同好友的shareCode中间用@符号隔开
-  'b1638a774d054a05a30a17d3b4d364b8@f92cb56c6a1349f5a35f0372aa041ea0@9c52670d52ad4e1a812f894563c746ea@8175509d82504e96828afc8b1bbb9cb3@2673c3777d4443829b2a635059953a28',
+  'f8df73267c104df2acba96d9378f06c5@987ee04888b64f0597b13049853caca4@32b5348df6374239964194e187fa187c@1f54af63767247c8bee99a03d287aff3@97d2efe84bd74bf8aacacb9b9bac20fd@6831e59df38e40468b099ff48e6a1a0f@0b51c67459b74f288e39b5ee091ffe1a@800d1ec39dbd473bbcf2f35667b78b02@9a07bef4e7ad49ae8fdaf113de817a1b@c168e10ee28248e79defbf76bd098e35@d241a66537244934ba66d40701231a82',
 ]
 let message = '', subTitle = '', option = {}, isFruitFinished = false;
 const retainWater = 100;//保留水滴大于多少g,默认100g;
@@ -1268,7 +1265,8 @@ function shareCodesFormat() {
       newShareCodes = jdFruitShareArr[$.index - 1].split('@');
     } else {
       console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
-      const tempIndex = $.index > shareCodes.length ? (shareCodes.length - 1) : ($.index - 1);
+      // const tempIndex = $.index > shareCodes.length ? (shareCodes.length - 1) : ($.index - 1);
+      const tempIndex = 0;
       newShareCodes = shareCodes[tempIndex].split('@');
     }
     const readShareCodeRes = await readShareCode();
