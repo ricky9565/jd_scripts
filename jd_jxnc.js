@@ -378,7 +378,7 @@ function getMessage(endInfo, startInfo) {
     }
   message += `【水滴】本次获得${get} 离线获得${leaveGet} 今日获得${dayGet} 还需水滴${need}\n`;
     if (get > 0 || leaveGet > 0 || dayGet > 0) {
-        const day = parseInt(need / (dayGet > 0 ? dayGet : (get + leaveGet)));
+        const day = Math.ceil(need / (dayGet > 0 ? dayGet : (get + leaveGet)));
         message += `【预测】还需 ${day} 天\n`;
     }
     if (get > 0 || leaveGet > 0) { // 本次 或 离线 有水滴
@@ -395,7 +395,7 @@ function submitInviteId(userName) {
       resolve();
       return;
     }
-    $.post(
+    try {$.post(
       {
         url: `https://api.ninesix.cc/api/jx-nc/${$.info.smp}/${encodeURIComponent(userName)}?active=${$.info.active}`,
       },
@@ -413,12 +413,16 @@ function submitInviteId(userName) {
         }
       },
     );
-  });
+  }catch (e) {
+            $.logErr(e, resp);
+            resolve();
+        }
+    });
 }
 
 function getAssistUser() {
   return new Promise(resolve => {
-    $.get({url: `https://api.ninesix.cc/api/jx-nc?active=${$.info.active}`}, async (err, resp, _data) => {
+    try {$.get({url: `https://api.ninesix.cc/api/jx-nc?active=${$.info.active}`}, async (err, resp, _data) => {
       try {
         const {code, data = {}} = JSON.parse(_data);if (data.value) {
         $.log(`获取随机助力码成功 ${code} ${data.value}`);
@@ -431,7 +435,11 @@ function getAssistUser() {
                 resolve(false);
       }
     });
-  });
+  }catch (e) {
+            $.logErr(e, resp);
+            resolve(false);
+        }
+    });
 }
 
 // 为好友助力 return true 继续助力  false 助力结束
